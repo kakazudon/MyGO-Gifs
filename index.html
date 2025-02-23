@@ -350,14 +350,22 @@
                 const matchA = a.match(/ep(\d+)_(\d+)_/);
                 const matchB = b.match(/ep(\d+)_(\d+)_/);
 
-                const epA = matchA ? parseInt(matchA[1], 10) : 0;
-                const lineA = matchA ? parseInt(matchA[2], 10) : 0;
-                
-                const epB = matchB ? parseInt(matchB[1], 10) : 0;
-                const lineB = matchB ? parseInt(matchB[2], 10) : 0;
+                if (!matchA || !matchB) return 0; // 防止匹配失敗
 
-                return epA - epB || lineA - lineB;
+                const epA = matchA[1];  // 直接使用 "01"、"02"、"03"
+                const lineA = parseInt(matchA[2], 10);  // 轉數字，確保 1 < 2 < 3
+                
+                const epB = matchB[1];
+                const lineB = parseInt(matchB[2], 10);
+
+                // 先比較 ep（字串），確保 ep01 在 ep02 前面
+                if (epA !== epB) return epA.localeCompare(epB);
+
+                // 如果 ep 相同，則比較行號（數字）
+                return lineA - lineB;
             });
+
+
 
 
             filtered.forEach(filename => {
