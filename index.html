@@ -376,12 +376,14 @@
 
                 // 複製按鈕
                 const copyBtn = document.createElement('button');
+                copyBtn.title = "複製動圖連結至剪貼簿";
                 copyBtn.className = 'icon-btn';
                 copyBtn.innerHTML = '<i class="fas fa-link"></i>';
                 copyBtn.onclick = () => copyLink(img);
 
                 // 下載按鈕
                 const downloadBtn = document.createElement('button');
+                downloadBtn.title = "下載動圖";
                 downloadBtn.className = 'icon-btn';
                 downloadBtn.innerHTML = '<i class="fas fa-download"></i>';
                 downloadBtn.onclick = () => downloadImage(img.src, filename);
