@@ -8,7 +8,7 @@
     <meta property="og:title" content="MyGO!!!!! 動圖搜尋">
 	<meta property="og:url" content="https://mygo-gifs.pages.dev/">
 	<meta property="og:image" content="https://mygo-gifs.pages.dev/src/assets/og-preview.jpg">
-	<meta property="og:description" content="一個儲存大量mygo動圖的網站 雖然網址是寫gif但實際上是webp格式 因為gif實在太舊太難用了">
+	<meta property="og:description" content="一個儲存mygo動圖的網站 可以下載動圖 或 複製連結 方便直接於discord使用 雖然網址是my-gif 但實際使用的格式是webp">
 	
     <title>MyGO!!!!! 動圖搜尋</title>
     <link rel="icon" type="image/x-icon" href="src/assets/favicon.ico">
@@ -247,7 +247,7 @@
         <div class="footer-link-item"><a href="#placeholder">GitHub</a></div>
 
         <div class="footer-info">
-            <p>made by kakatsudon | 更新日期: 2025年2月18日</p>
+            <p>made by kakatsudon</p>
         </div>
     </div>
 
@@ -274,28 +274,17 @@
         }
 
         // 複製圖片功能
-        async function copyImage(img) {
-            fetch(img.src)
-                .then(response => response.blob())
-                .then(blob => {
-                    return new Promise(resolve => {
-                        const canvas = document.createElement("canvas");
-                        const ctx = canvas.getContext("2d");
-                        const image = new Image();
-                        image.onload = () => {
-                            canvas.width = image.width;
-                            canvas.height = image.height;
-                            ctx.drawImage(image, 0, 0);
-                            canvas.toBlob(resolve, "image/png");
-                        };
-                        image.src = URL.createObjectURL(blob);
-                    });
-                })
-                .then(pngBlob => {
-                    navigator.clipboard.write([new ClipboardItem({ "image/png": pngBlob })])
-                        .then(() => showToast("圖片已複製到剪貼簿"))
-                        .catch(err => showToast("複製失敗: " + err));
-                });
+        async function copyLink(img) {
+            try {
+                // 取得圖片的絕對網址
+                const url = new URL(img.src, window.location.origin).href;
+
+                // 複製到剪貼簿
+                await navigator.clipboard.writeText(url);
+                showToast("連結已複製到剪貼簿");
+            } catch (err) {
+                showToast("複製失敗: " + err);
+            }
         }
 
         // 下載圖片功能
@@ -388,8 +377,8 @@
                 // 複製按鈕
                 const copyBtn = document.createElement('button');
                 copyBtn.className = 'icon-btn';
-                copyBtn.innerHTML = '<i class="fas fa-copy"></i>';
-                copyBtn.onclick = () => copyImage(img);
+                copyBtn.innerHTML = '<i class="fas fa-link"></i>';
+                copyBtn.onclick = () => copyLink(img);
 
                 // 下載按鈕
                 const downloadBtn = document.createElement('button');
