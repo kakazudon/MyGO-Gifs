@@ -347,10 +347,18 @@
             );
 
             filtered.sort((a, b) => {
-                const epA = a.match(/episode(\d+)/)?.[1] || 0;
-                const epB = b.match(/episode(\d+)/)?.[1] || 0;
-                return epA - epB;
+                const matchA = a.match(/ep(\d+)_(\d+)_/);
+                const matchB = b.match(/ep(\d+)_(\d+)_/);
+
+                const epA = matchA ? parseInt(matchA[1], 10) : 0;
+                const lineA = matchA ? parseInt(matchA[2], 10) : 0;
+                
+                const epB = matchB ? parseInt(matchB[1], 10) : 0;
+                const lineB = matchB ? parseInt(matchB[2], 10) : 0;
+
+                return epA - epB || lineA - lineB;
             });
+
 
             filtered.forEach(filename => {
                 const item = document.createElement('div');
