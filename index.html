@@ -278,11 +278,19 @@
         // 複製圖片功能
         async function copyLink(img) {
             try {
-                // 取得圖片的絕對網址
-                const url = new URL(img.src, window.location.origin).href;
+                // 從 meta 標籤中取得 og:url
+                const metaOgUrl = document.querySelector('meta[property="og:url"]');
+                const baseUrl = metaOgUrl ? metaOgUrl.content : window.location.origin;
+
+                // 取得圖片的相對路徑並解碼
+                const url = new URL(img.src, window.location.origin);
+                const decodedPath = decodeURIComponent(url.pathname);
+
+                // 串接成完整網址
+                const fullUrl = baseUrl.replace(/\/$/, '') + decodedPath;
 
                 // 複製到剪貼簿
-                await navigator.clipboard.writeText(url);
+                await navigator.clipboard.writeText(fullUrl);
                 showToast("連結已複製到剪貼簿");
             } catch (err) {
                 showToast("複製失敗: " + err);
