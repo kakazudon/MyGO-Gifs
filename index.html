@@ -400,12 +400,12 @@
                 const btnContainer = document.createElement('div');
                 btnContainer.className = 'button-container';
 
-                // 複製按鈕
-                const copyBtn = document.createElement('button');
-                copyBtn.title = "複製動圖連結至剪貼簿";
-                copyBtn.className = 'icon-btn';
-                copyBtn.innerHTML = '<i class="fas fa-link"></i>';
-                copyBtn.onclick = () => copyLink(img);
+                // 複製連結按鈕
+                const copyLinkBtn = document.createElement('button');
+                copyLinkBtn.title = "複製連結至剪貼簿";
+                copyLinkBtn.className = 'icon-btn';
+                copyLinkBtn.innerHTML = '<i class="fas fa-link"></i>';
+                copyLinkBtn.onclick = () => copyLink(img);
 
                 // 下載按鈕
                 const downloadBtn = document.createElement('button');
@@ -414,7 +414,7 @@
                 downloadBtn.innerHTML = '<i class="fas fa-download"></i>';
                 downloadBtn.onclick = () => downloadImage(img.src, filename);
 
-                btnContainer.appendChild(copyBtn);
+                btnContainer.appendChild(copyLinkBtn);
                 btnContainer.appendChild(downloadBtn);
                 item.appendChild(img);
                 item.appendChild(btnContainer);
