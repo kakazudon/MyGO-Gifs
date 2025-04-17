@@ -8,12 +8,14 @@
     <meta property="og:title" content="MyGO!!!!! 動圖搜尋">
 	<meta property="og:url" content="https://mygo-gifs.pages.dev/">
 	<meta property="og:image" content="https://mygo-gifs.pages.dev/src/assets/og-preview.jpg">
-	<meta property="og:description" content="一個儲存mygo動圖的網站 可以下載動圖 或 複製連結 方便直接於discord使用 雖然網址是my-gif 但實際使用的格式是webp">
+	<meta property="og:description" content="一個儲存mygo動圖的網站 方便直接下載動圖 或 複製連結使用">
 	
     <title>MyGO!!!!! 動圖搜尋</title>
     <link rel="icon" type="image/x-icon" href="src/assets/favicon.ico">
+    
     <!-- Font Awesome 圖標庫 -->
     <link rel="stylesheet" href="src/assets/fontawesome-free-6.4.0-web/css/all.min.css">
+    
     <style>
         :root {
             --primary-color: #3388BB;
@@ -241,9 +243,12 @@
     </div>
 
     <div class="footer-links">
-		<!--mygo動圖-->
+        <!--mygo截圖-->
         <div class="footer-link-item"><a href="https://mygo-searcher.pages.dev/">MyGO!!!!! 台詞搜尋</a></div>
+        <div class="footer-link-item"><a href="https://mygo-gifs.pages.dev/">MyGO!!!!! 動圖搜尋</a></div>
         <div class="footer-link-item"><a href="https://ave-mujica-searcher.pages.dev/">Ave Mujica 台詞搜尋</a></div>
+        <div class="footer-link-item"><a href="https://ave-mujica-gifs.pages.dev/">Ave Mujica 動圖搜尋</a></div>
+        <div class="footer-link-item"><a href="https://bandori-family.pages.dev/">邦邦世家</a></div>
         <div class="footer-link-item"><a href="https://forms.gle/QtSv3wuDzGuDxhPA9">截圖錯誤回報</a></div>
         <div class="footer-link-item"><a href="https://forms.gle/xj11uU6o53bHXHuGA">問題 與 建議</a></div>
         <div class="footer-link-item"><a href="#placeholder">GitHub</a></div>
@@ -259,9 +264,7 @@
     </button>
     
     <div id="toast" class="toast"></div>
-
     
-
     <script>
         let images = [];
 
@@ -275,7 +278,6 @@
             }, 2000);
         }
 
-        // 複製圖片功能
         async function copyLink(img) {
             try {
                 // 從 meta 標籤中取得 og:url
@@ -420,6 +422,8 @@
                 item.appendChild(btnContainer);
                 resultsDiv.appendChild(item);
             });
+
+            console.log(`Total results: ${filtered.length}`);
         });
 
         window.onscroll = function() {
